@@ -28,7 +28,7 @@ public class Peddle_shooting : MonoBehaviour {
             GameObject projectile = Instantiate(pebble) as GameObject;
             projectile.transform.position = transform.position;
             projectile.transform.rotation = transform.rotation;
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
+            //Rigidbody rb = projectile.GetComponent<Rigidbody>();
             //rb.velocity = projectile.transform.forward * speed;
             tempSpeed = ShootingSpeed;
         }

@@ -3,20 +3,23 @@ using System.Collections;
 
 public class runAnimations : MonoBehaviour {
 
-
+    /*
     private Animator anim;
     public GameObject weapon;
     public GameObject IK;
-
+    */
 	// Use this for initialization
 	void Start () {
+        /*
         anim = GetComponent<Animator>();
         weapon.SetActive(false);
         IK.GetComponent<customIK>().enabled = false;
+        */
 	}
 
     void FixedUpdate()
     {
+        /*
         bool warriorActive = gameObject.GetComponent<WarriorBottomController>().isActiveAndEnabled;
         bool warriorGrounded = gameObject.GetComponent<WarriorBottomController>().isGrounded();
         float warriorMove = Mathf.Abs(Input.GetAxisRaw("Vertical"));
@@ -50,6 +53,7 @@ public class runAnimations : MonoBehaviour {
         {
             IK.GetComponent<customIK>().enabled = false;
         }
+        */
     }
 	
 	// Update is called once per frame

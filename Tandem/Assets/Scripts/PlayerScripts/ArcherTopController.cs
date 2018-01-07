@@ -12,7 +12,7 @@ public class ArcherTopController : PlayerTopScript
 	GameObject arrowPrefab;
 	GameObject player;
 	GameObject arrow;
-	GameObject shotArrow;
+	//GameObject shotArrow;
 
 	private float stickDir;
 	private Vector2 stickInput;

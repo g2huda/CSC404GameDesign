@@ -26,7 +26,6 @@ public class CentralPlayerController : MonoBehaviour {
 
     public GameObject pauseScreen;
 
-    public AudioClip flipSound;
     public AudioClip hitSound;
     public AudioClip gemSound;
     public int reaction;
@@ -154,9 +153,6 @@ public class CentralPlayerController : MonoBehaviour {
             setPlayerState();
             //Physically switch the players
             players.SetInteger("flip", 1);
-            //flip audio
-            source.PlayOneShot(flipSound, 1F);
-
         }
         else if (!players.IsInTransition(0) && players.GetCurrentAnimatorStateInfo(0).IsName("boyIdle"))
         {
@@ -164,8 +160,6 @@ public class CentralPlayerController : MonoBehaviour {
             setPlayerState();
             //Physically switch the players
             players.SetInteger("flip", 1);
-            //flip audio
-            source.PlayOneShot(flipSound, 1F);
         }
         
     }

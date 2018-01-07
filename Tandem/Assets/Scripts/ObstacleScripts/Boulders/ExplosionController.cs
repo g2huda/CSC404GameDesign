@@ -15,7 +15,7 @@ public class ExplosionController : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other);
+        //Debug.Log(other);
         Destroy(gameObject);
     }
 
