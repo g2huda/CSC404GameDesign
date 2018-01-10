@@ -8,14 +8,11 @@ public class WarriorBottomController : PlayerBottomScript {
     public GameObject WarriorStraightActive;
     public float onMoltenSpeed = 1f;
 
-    public AudioClip jumpSound;
-    private AudioSource source;
     private bool onMolten = false;
 
 
     void Start()
     {
-        source = GetComponent<AudioSource>();
     }
 
     void FixedUpdate ()
@@ -28,7 +25,6 @@ public class WarriorBottomController : PlayerBottomScript {
         if (Input.GetButton("Jump"))
         {
             //jump sound
-            source.PlayOneShot(jumpSound, 1F);
             AttemptJump();
         }
 

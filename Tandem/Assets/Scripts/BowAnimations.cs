@@ -4,10 +4,12 @@ using System.Collections;
 public class BowAnimations : MonoBehaviour {
 
     private Animator anim;
+    private Animator parentAnim;
     private float deadzone;
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
+        parentAnim = transform.root.gameObject.GetComponent<Animator>();
         deadzone = 0.25f;
 	
 	}
@@ -16,7 +18,8 @@ public class BowAnimations : MonoBehaviour {
 	void Update () {
         float aimX = Input.GetAxis("AimX");
         float aimY = Input.GetAxis("AimY");
-        bool archerOnTop = transform.root.gameObject.GetComponent<ArcherTopController>().isActiveAndEnabled;
+        
+        bool archerOnTop = parentAnim.GetCurrentAnimatorStateInfo(0).IsName("girlLoco");//transform.root.gameObject.GetComponent<ArcherTopController>().isActiveAndEnabled;
         if (archerOnTop)
         {
             Vector2 stickInput = new Vector2(aimX, aimY);

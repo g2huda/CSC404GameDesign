@@ -55,7 +55,7 @@ public class CentralPlayerController : MonoBehaviour {
 	private Vector3 oldPos;
 	private Vector3 movement;
 
-    private Animator players;
+    private Animator animator;
 
     private AudioSource source;
     private int reactionTemp;
@@ -75,7 +75,7 @@ public class CentralPlayerController : MonoBehaviour {
         }
 
 
-        players = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         ArcherTurningBase = GameObject.Find("ArcherTurningBase");
         ArcherStraightBase = GameObject.Find("ArcherStraightBase");
@@ -89,6 +89,7 @@ public class CentralPlayerController : MonoBehaviour {
 
         WarriorTurningBase.SetActive(false);
         ArcherStraightBase.SetActive(false);
+        warriorBottom = true;
 
 		gameObject.transform.position = startingSpawn.transform.position;
 
@@ -106,8 +107,13 @@ public class CentralPlayerController : MonoBehaviour {
     /* Sets which script and UI elements are active depending on which player is top */
     void setPlayerState ()
     {
+        //Deactivate all the active movement indicators
+        ArcherTurningActive.SetActive(false);
+        ArcherStraightActive.SetActive(false);
+        WarriorTurningActive.SetActive(false);
+        WarriorStraightActive.SetActive(false);
         //Set the movement controller scripts
-        if (!players.IsInTransition(0) && players.GetCurrentAnimatorStateInfo(0).IsName("girlIdle"))
+        if (warriorBottom)
         {
             gameObject.GetComponent<WarriorBottomController>().enabled = true;
             gameObject.GetComponent<WarriorTopController>().enabled = false;
@@ -118,11 +124,9 @@ public class CentralPlayerController : MonoBehaviour {
             ArcherStraightBase.SetActive(false);
             WarriorTurningBase.SetActive(false);
             WarriorStraightBase.SetActive(true);
-            //Physically switch the players
-            players.SetInteger("flip", 1);            
         }
 
-        else if (!players.IsInTransition(0) && players.GetCurrentAnimatorStateInfo(0).IsName("boyIdle"))
+        else if (!warriorBottom)
         {
             gameObject.GetComponent<ArcherBottomController>().enabled = true;
             gameObject.GetComponent<ArcherTopController>().enabled = false;
@@ -135,32 +139,26 @@ public class CentralPlayerController : MonoBehaviour {
             WarriorStraightBase.SetActive(false);
         }
 
-        //Deactivate all the active movement indicators
-        ArcherTurningActive.SetActive(false);
-        ArcherStraightActive.SetActive(false);
-        WarriorTurningActive.SetActive(false);
-        WarriorStraightActive.SetActive(false);
-
     }
 
     /*Flip the players by disabling movement for the top player and changing the interactable objects */
     void FlipPlayers ()
     {
+        warriorBottom = !animator.GetBool("bottom");
+        setPlayerState();
+        /*
         //Set the movement controller scripts
-        if (!players.IsInTransition(0) && players.GetCurrentAnimatorStateInfo(0).IsName("girlIdle"))
+        if (!animator.GetBool("bottom"))
         {
             warriorBottom = true;
             setPlayerState();
-            //Physically switch the players
-            players.SetInteger("flip", 1);
         }
-        else if (!players.IsInTransition(0) && players.GetCurrentAnimatorStateInfo(0).IsName("boyIdle"))
+        else if (animator.GetBool("bottom"))
         {
             warriorBottom = false;
             setPlayerState();
-            //Physically switch the players
-            players.SetInteger("flip", 1);
         }
+        */
         
     }
 
@@ -253,7 +251,6 @@ public class CentralPlayerController : MonoBehaviour {
     /* Check if players want to switch and change the UI/switch accordingly */
     void checkForSwitch()
     {
-        players.SetInteger("flip", 0);
         float firstPlayerSwitch = Input.GetAxis("Switch1");
         float secondPlayerSwitch = Input.GetAxis("Switch2");
         if (firstPlayerSwitch > 0 && secondPlayerSwitch == 0)
@@ -283,13 +280,13 @@ public class CentralPlayerController : MonoBehaviour {
             WarriorFlipBase.SetActive(false);
             ArcherFlipBase.SetActive(false);
             //Have to make sure players are grounded and not already flipping
-            if (gameObject.GetComponent<WarriorBottomController>().isGrounded())
-            {
-                if (!players.GetCurrentAnimatorStateInfo(0).IsTag("flip"))
+          //  if (gameObject.GetComponent<WarriorBottomController>().isGrounded())
+          //  {
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("flip"))
                 {
                     FlipPlayers();
                 }
-            }
+           // }
         }
         else
         { //No one wants to switch
@@ -360,7 +357,7 @@ public class CentralPlayerController : MonoBehaviour {
 			StartCoroutine(takeDamage ());
 			StartCoroutine (disableControlsFor (1));
 			gameObject.transform.position = respawn.transform.position;
-            players.SetBool("bottom", warriorBottom);
+            animator.SetBool("bottom", warriorBottom);
         }
 
         //damage from mine exploding

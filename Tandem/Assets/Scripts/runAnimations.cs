@@ -3,49 +3,49 @@ using System.Collections;
 
 public class runAnimations : MonoBehaviour {
 
-    /*
-    private Animator anim;
+    
+    private Animator animator;
     public GameObject weapon;
     public GameObject IK;
-    */
-	// Use this for initialization
-	void Start () {
-        /*
-        anim = GetComponent<Animator>();
+
+    //animator parameters;
+    private string WARRIORSPEED = "WarriorSpeed";
+    private string ARCHERSPEED = "ArcherSpeed";
+    private string WARRIORJUMP = "WarriorJump";
+    private string ARCHERJUMP = "ArcherJump";
+    private string ARCHERFLIP = "ArcherFlip";
+    private string WARRIORFLIP = "WarriorFlip";
+
+    // Use this for initialization
+    void Start () {
+        
+        animator = GetComponent<Animator>();
         weapon.SetActive(false);
         IK.GetComponent<customIK>().enabled = false;
-        */
+        
 	}
 
-    void FixedUpdate()
+    void Update()
     {
-        /*
-        bool warriorActive = gameObject.GetComponent<WarriorBottomController>().isActiveAndEnabled;
-        bool warriorGrounded = gameObject.GetComponent<WarriorBottomController>().isGrounded();
-        float warriorMove = Mathf.Abs(Input.GetAxisRaw("Vertical"));
+        float warriorVertical = Input.GetAxis("Vertical");
+        float archerVertical = Input.GetAxis("Vertical2");
+        bool warriorJump = Input.GetButton("Jump") && animator.GetBool("Grounded");
+        bool archerJump = Input.GetButton("Jump2") && animator.GetBool("Grounded");
+        bool warriorFlip = Input.GetAxis("Switch1") > 0;
+        bool archerFlip = Input.GetAxis("Switch2") > 0;
+        bool flip = warriorFlip && archerFlip;
 
-        bool archerActive = gameObject.GetComponent<ArcherBottomController>().isActiveAndEnabled;
-        bool archerGrounded = gameObject.GetComponent<ArcherBottomController>().isGrounded();
-        float archerMove = Mathf.Abs(Input.GetAxisRaw("Vertical2"));
-
-
-        if (warriorActive && warriorGrounded && warriorMove > 0.0f)
+        if (animator)
         {
-            anim.SetInteger("run", 1);
-            anim.SetFloat("Speed", warriorMove);
+            animator.SetFloat(WARRIORSPEED, Mathf.Abs(warriorVertical));
+            animator.SetFloat(ARCHERSPEED, Mathf.Abs(archerVertical));
+            animator.SetBool(ARCHERJUMP, archerJump);
+            animator.SetBool(WARRIORJUMP, warriorJump);
+            animator.SetBool(WARRIORFLIP, warriorFlip);
+            animator.SetBool(ARCHERFLIP, archerFlip);
         }
-        else if (archerActive && archerGrounded && archerMove > 0.0f)
-        {
-            anim.SetInteger("run", 1);
-            anim.SetFloat("Speed", archerMove);
-        }
-        else
-        {
-            anim.SetInteger("run", 0);
-        }
-
         //activate archer bow and arm movements
-        if (warriorActive)
+        if (animator.GetBool("bottom") && !flip)
         {
             IK.GetComponent<customIK>().enabled = true;
         }
@@ -53,12 +53,7 @@ public class runAnimations : MonoBehaviour {
         {
             IK.GetComponent<customIK>().enabled = false;
         }
-        */
+        
     }
 	
-	// Update is called once per frame
-	void Update () {
-
-	
-	}
 }

@@ -3,9 +3,12 @@ using System.Collections;
 
 public class ArcherLocomotionBehaviour : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+   // public GameObject weapon;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("bottom", false);
+    //    weapon.SetActive(true);
+        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

@@ -24,7 +24,8 @@ public class InputHandler : MonoBehaviour {
     private string ARCHERSPEED = "ArcherSpeed";
     private string WARRIORJUMP = "WarriorJump";
     private string ARCHERJUMP = "ArcherJump";
-    private string FLIP = "flip";
+    private string ARCHERFLIP = "ArcherFlip";
+    private string WARRIORFLIP = "WarriorFlip";
 
     //players states
     TopPlayer archerTop, warriorTop;
@@ -53,7 +54,9 @@ public class InputHandler : MonoBehaviour {
         bool archerJump = Input.GetButton("Jump2") && animator.GetBool("Grounded");
         float warriorTurn = Input.GetAxis("Horizontal");
         float archerTurn = Input.GetAxis("Horizontal2");
-        bool flip = Input.GetAxis("Switch1") > 0 && Input.GetAxis("Switch2") > 0;
+        bool warriorFlip = Input.GetAxis("Switch1") > 0;
+        bool archerFlip =  Input.GetAxis("Switch2") > 0;
+        bool flip = warriorFlip && archerFlip;
 
         if (animator)
         {
@@ -61,7 +64,8 @@ public class InputHandler : MonoBehaviour {
             animator.SetFloat(ARCHERSPEED, Mathf.Abs(archerVertical));
             animator.SetBool(ARCHERJUMP, archerJump);
             animator.SetBool(WARRIORJUMP, warriorJump);
-            animator.SetBool(FLIP, flip);
+            animator.SetBool(WARRIORFLIP, warriorFlip);
+            animator.SetBool(ARCHERFLIP, archerFlip);
         }
 
         //check if warrior is at bottom
