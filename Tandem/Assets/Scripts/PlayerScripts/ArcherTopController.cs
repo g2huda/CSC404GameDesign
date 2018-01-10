@@ -57,7 +57,7 @@ public class ArcherTopController : PlayerTopScript
 		// Aim Axis
 		float aimX = Input.GetAxis ("AimX");
 		float aimY = Input.GetAxis ("AimY");
-		float fire = Input.GetAxis ("FireArrow");
+		float fire = Input.GetButton ("FireArrow")?1f:0f;
 
 		// Math to convert Axis to Angle Direction
 		stickDir = Mathf.Atan2 (aimX, aimY) * Mathf.Rad2Deg;

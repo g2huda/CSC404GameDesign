@@ -396,7 +396,7 @@ public class CentralPlayerController : MonoBehaviour {
 			movement = (newPos - oldPos);
 
 			// Move respawn to the player
-//			respawn.transform.position = gameObject.transform.position;
+			respawn.transform.position = gameObject.transform.position;
 
 			// If moving Forward
 			if (Vector3.Dot (gameObject.transform.forward, movement) > 0) {

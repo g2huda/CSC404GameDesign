@@ -68,4 +68,10 @@ public class WarriorBottomController : PlayerBottomScript {
         }
     }
 
+    private void OnDisable()
+    {
+        if(WarriorStraightActive)
+            WarriorStraightActive.SetActive(false);
+    }
+
 }

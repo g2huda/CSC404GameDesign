@@ -36,7 +36,7 @@ public class WarriorTopController : PlayerTopScript {
         // Math to convert Axis to Angle Direction
         stickDir = Mathf.Atan2(blockX, blockY) * Mathf.Rad2Deg;
 
-        if (Input.GetAxis("Block") > 0)
+        if (Input.GetButton("Block"))
         {
             Block();
         }
